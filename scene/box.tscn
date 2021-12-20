@@ -1,0 +1,125 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://OQ_Toolkit/OQ_Classes/OQClass_GrabbableRigidBody.gd" type="Script" id=1]
+[ext_resource path="res://scene/box.gd" type="Script" id=2]
+[ext_resource path="res://scene/objects/box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/objects/gift.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/colorLabel.tscn" type="PackedScene" id=6]
+
+[sub_resource type="PhysicsMaterial" id=3]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.174432, 0.17142, 0.173695 )
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0.69171, 0.945596 )
+colors = PoolColorArray( 0.97832, 0.86642, 0.307445, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 10 )
+width = 12
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.04233, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+initial_velocity = 5.0
+initial_velocity_random = 0.2
+angular_velocity = 144.72
+damping = 1.51
+scale_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="SpatialMaterial" id=6]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 6 )
+radius = 0.05
+height = 0.1
+radial_segments = 16
+rings = 8
+
+[sub_resource type="ParticlesMaterial" id=11]
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.2
+angular_velocity = 144.72
+damping = 1.51
+scale_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="SphereMesh" id=12]
+material = SubResource( 6 )
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
+
+[node name="Box" type="Spatial"]
+script = ExtResource( 2 )
+color_1 = Color( 0.960784, 0.192157, 0.192157, 1 )
+color_2 = Color( 0.964706, 0.952941, 0.141176, 1 )
+color_3 = Color( 0.101961, 0.486275, 0.980392, 1 )
+color_4 = Color( 0.227451, 0.929412, 0.0823529, 1 )
+
+[node name="OQClass_GrabbableRigidBody" type="RigidBody" parent="." groups=["Boxes"]]
+mass = 3.0
+physics_material_override = SubResource( 3 )
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="OQClass_GrabbableRigidBody"]
+shape = SubResource( 2 )
+
+[node name="box" parent="OQClass_GrabbableRigidBody" instance=ExtResource( 3 )]
+
+[node name="gift" parent="OQClass_GrabbableRigidBody" instance=ExtResource( 4 )]
+transform = Transform( 0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0.0069963, 0 )
+visible = false
+
+[node name="ColorLabel" parent="OQClass_GrabbableRigidBody" instance=ExtResource( 6 )]
+transform = Transform( 1.00121, 0, 0, 0, -4.37644e-08, 1.00121, 0, -1.00121, -4.37644e-08, 0, 0.173983, 0 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="OQClass_GrabbableRigidBody"]
+
+[node name="Particles" type="Particles" parent="OQClass_GrabbableRigidBody"]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.89
+local_coords = false
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="Gift" type="Particles" parent="OQClass_GrabbableRigidBody"]
+emitting = false
+amount = 50
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.89
+local_coords = false
+process_material = SubResource( 11 )
+draw_pass_1 = SubResource( 12 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="FreeTimer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="body_entered" from="OQClass_GrabbableRigidBody" to="." method="_on_OQClass_GrabbableRigidBody_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FreeTimer" to="." method="_on_FreeTimer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

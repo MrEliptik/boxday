@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scene/boxValidation.gd" type="Script" id=1]
+[ext_resource path="res://audio/bip-book-checked.wav" type="AudioStream" id=2]
+[ext_resource path="res://audio/voice-male-humming-negative-a.wav" type="AudioStream" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.772244, 0.177002 )
+
+[node name="BoxValidation" type="Area"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )
+unit_db = 2.481
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = 3.269
+
+[connection signal="body_entered" from="." to="." method="_on_BoxValidation_body_entered"]

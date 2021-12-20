@@ -1,0 +1,70 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://OQ_Toolkit/OQ_ARVROrigin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://OQ_Toolkit/OQ_ARVRCamera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_ControllerModel_Left_Reactive.tscn" type="PackedScene" id=3]
+[ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_ControllerModel_Right_Reactive.tscn" type="PackedScene" id=4]
+[ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_UIRayCast.tscn" type="PackedScene" id=5]
+[ext_resource path="res://OQ_Toolkit/OQ_LeftController.tscn" type="PackedScene" id=6]
+[ext_resource path="res://OQ_Toolkit/OQ_RightController.tscn" type="PackedScene" id=7]
+[ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_RigidBodyGrab.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/ui/pause.tscn" type="PackedScene" id=9]
+[ext_resource path="res://OQ_Toolkit/OQ_UI2D/OQ_UI2DCanvas.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scene/player.gd" type="Script" id=11]
+[ext_resource path="res://scene/pause.gd" type="Script" id=12]
+[ext_resource path="res://scene/ui/score.tscn" type="PackedScene" id=13]
+
+[node name="Player" type="Spatial"]
+script = ExtResource( 11 )
+
+[node name="OQ_ARVROrigin" parent="." instance=ExtResource( 1 )]
+pause_mode = 2
+
+[node name="OQ_ARVRCamera" parent="OQ_ARVROrigin" instance=ExtResource( 2 )]
+current = true
+
+[node name="Pause" type="Spatial" parent="OQ_ARVROrigin/OQ_ARVRCamera"]
+pause_mode = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00347304, -0.983807 )
+visible = false
+script = ExtResource( 12 )
+
+[node name="OQ_UI2DCanvas" parent="OQ_ARVROrigin/OQ_ARVRCamera/Pause" instance=ExtResource( 10 )]
+
+[node name="Pause" parent="OQ_ARVROrigin/OQ_ARVRCamera/Pause/OQ_UI2DCanvas" instance=ExtResource( 9 )]
+
+[node name="OQ_LeftController" parent="OQ_ARVROrigin" instance=ExtResource( 6 )]
+autoload_model = false
+
+[node name="Feature_RigidBodyGrab" parent="OQ_ARVROrigin/OQ_LeftController" instance=ExtResource( 8 )]
+grab_type = 1
+
+[node name="Feature_ControllerModel_Left_Reactive" parent="OQ_ARVROrigin/OQ_LeftController" instance=ExtResource( 3 )]
+
+[node name="OQ_RightController" parent="OQ_ARVROrigin" instance=ExtResource( 7 )]
+autoload_model = false
+
+[node name="Feature_UIRayCast" parent="OQ_ARVROrigin/OQ_RightController" instance=ExtResource( 5 )]
+ui_raycast_visible_button = -1
+
+[node name="Feature_RigidBodyGrab" parent="OQ_ARVROrigin/OQ_RightController" instance=ExtResource( 8 )]
+grab_type = 1
+
+[node name="Feature_ControllerModel_Right" parent="OQ_ARVROrigin/OQ_RightController" instance=ExtResource( 4 )]
+
+[node name="Score" type="Spatial" parent="OQ_ARVROrigin/OQ_RightController"]
+transform = Transform( 1, 0, 0, 0, 0.642895, 0.765955, 0, -0.765955, 0.642895, 0.0115589, 0.065408, 0.0338475 )
+
+[node name="OQ_UI2DCanvas" parent="OQ_ARVROrigin/OQ_RightController/Score" instance=ExtResource( 10 )]
+editor_live_update = true
+
+[node name="Score" parent="OQ_ARVROrigin/OQ_RightController/Score/OQ_UI2DCanvas" instance=ExtResource( 13 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 100.0
+margin_bottom = 21.0
+
+[connection signal="restart" from="OQ_ARVROrigin/OQ_ARVRCamera/Pause/OQ_UI2DCanvas/Pause" to="." method="_on_Pause_restart"]
+[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="." method="_on_OQ_LeftController_button_pressed"]
+[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="OQ_ARVROrigin/OQ_ARVRCamera/Pause" method="_on_OQ_LeftController_button_pressed"]
+[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_RightController" to="OQ_ARVROrigin/OQ_ARVRCamera/Pause" method="_on_OQ_RightController_button_pressed"]

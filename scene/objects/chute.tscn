@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.647059, 0.647059, 0.647059, 1 )
+metallic = 1.0
+roughness = 0.26
+
+[sub_resource type="PhysicsMaterial" id=4]
+friction = 0.0
+rough = true
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.441299, 0.0352662, 2.00767 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.0266532, 0.251235, 2.00767 )
+
+[node name="Chute" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1.00148, 0, 0, 0, 1.00148, 0, 0, 0, 1.00148, 0, 0, 0 )
+material_override = SubResource( 3 )
+operation = 2
+width = 0.866973
+height = 0.5
+depth = 4.0
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0976362, 0 )
+operation = 2
+width = 0.785896
+height = 0.562201
+depth = 4.0
+
+[node name="StaticBody" type="StaticBody" parent="."]
+physics_material_override = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.215961, 0 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.414646, -0.000533655, 0 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.415182, -0.000533655, 0 )
+shape = SubResource( 5 )

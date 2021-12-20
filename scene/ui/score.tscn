@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://OQ_Toolkit/OQ_UI2D/theme/Roboto-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scene/ui/score.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Score" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -924.0
+margin_bottom = -579.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.121569, 0.121569, 0.121569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_right = -3.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GridContainer"]
+margin_right = 45.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 1 )
+text = "SCORE:"
+valign = 1
+
+[node name="Label2" type="Label" parent="GridContainer"]
+margin_left = 49.0
+margin_right = 94.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 2
+valign = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

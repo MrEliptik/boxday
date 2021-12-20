@@ -1,0 +1,6 @@
+.import
+src_data
+.DS_STORE
+build/*
+visuals/models.blend
+visuals/models.blend1

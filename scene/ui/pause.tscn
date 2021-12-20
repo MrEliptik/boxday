@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://OQ_Toolkit/OQ_UI2D/theme/Roboto-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scene/ui/pause.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 54
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="Pause" type="Control"]
+pause_mode = 2
+margin_right = 829.0
+margin_bottom = 342.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 87.0
+custom_fonts/font = SubResource( 2 )
+text = "PAUSE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 77.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Screen1" type="GridContainer" parent="MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 814.0
+margin_bottom = 250.0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 25
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeBtn" type="Button" parent="MarginContainer/Screen1"]
+margin_right = 249.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 5 )
+text = "RESUME"
+
+[node name="RestartBtn" type="Button" parent="MarginContainer/Screen1"]
+margin_left = 274.0
+margin_right = 523.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 5 )
+text = "RESTART"
+
+[node name="RestartBtn2" type="Button" parent="MarginContainer/Screen1"]
+margin_left = 548.0
+margin_right = 797.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 5 )
+text = "QUIT"
+
+[connection signal="pressed" from="MarginContainer/Screen1/ResumeBtn" to="." method="_on_ResumeBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/Screen1/RestartBtn" to="." method="_on_RestartBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/Screen1/RestartBtn2" to="." method="_on_RestartBtn2_pressed"]

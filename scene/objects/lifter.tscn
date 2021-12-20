@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://visuals/models/lifter/lifter.glb" type="PackedScene" id=1]
+
+[node name="lifter" instance=ExtResource( 1 )]
