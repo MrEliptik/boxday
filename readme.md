@@ -4,8 +4,6 @@ VR game made for Secret Santa 2021
 
 Download the apk on [itch.io](https://mreliptik.itch.io/boxday)
 
-<iframe frameborder="0" src="https://itch.io/embed/1309752" width="552" height="167"><a href="https://mreliptik.itch.io/boxday">Boxday by MrEliptik</a></iframe>
-
 ## How to play
 
 Put the colored boxes on the right conveyor to turn them into gifts. Be careful, there are garbage package that you must throw away.
