@@ -32,4 +32,4 @@ Made by me, MrEliptik!
 
 ## License
 
-Distributed under MIT license, see [license]() for more info. 
+Distributed under MIT license, see [license](LICENSE) for more info. 
